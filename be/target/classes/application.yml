@@ -1,0 +1,41 @@
+server:
+  port: 8086
+
+spring:
+  datasource:
+    url: jdbc:mysql://ai_camp.mysql.dev-spatio-inc.com:3306/prompt_admin?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: ai_camp_dev_rw
+    password: GW41v5K8mAJ8B4n4
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  ldap:
+    urls: ldap://ldap.bondee.com:389
+    username: dolphin@bondee.com
+    password: o&!u*Wyjqo
+    base: OU=zone,DC=bondee,DC=local
+    group: CN=dolphin-outsourcing,OU=groups,OU=local,OU=zone,DC=bondee,DC=local,,CN=spatio-internal,OU=groups,OU=local,OU=zone,DC=bondee,DC=local
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.promptadmin.entity
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+jwt:
+  secret: promptadmin2024
+  expiration: 86400
+
+logging:
+  level:
+    root: INFO
+    com.promptadmin: INFO
+    org.springframework: INFO
+    org.springframework.ldap: INFO
+    org.springframework.security: INFO

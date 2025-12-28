@@ -1,0 +1,457 @@
+# 登录
+curl -X POST 'http://localhost:8080/api/auth/login' \
+-H 'Content-Type: application/json' \
+-d '{
+    "username": "admin",
+    "password": "admin123"
+}'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "token": "eyJhbGciOiJIUzUxMiJ9...",
+        "user": {
+            "id": 1,
+            "username": "admin",
+            "role": "superadmin",
+            "email": "admin@example.com"
+        }
+    }
+}
+
+# 注册
+curl -X POST 'http://localhost:8080/api/auth/register' \
+-H 'Content-Type: application/json' \
+-d '{
+    "username": "felix",
+    "password": "123456",
+    "email": "felix@example.com"
+}'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "id": 4,
+        "username": "felix",
+        "role": "user",
+        "email": "felix@example.com"
+    }
+}
+
+# 获取工作空间列表
+curl -X GET 'http://localhost:8080/api/workspaces/list' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "id": 1,
+            "name": "研发工作空间",
+            "description": "用于研发团队的工作空间",
+            "adminId": 2,
+            "status": 1,
+            "createTime": "2024-11-06 07:31:55"
+        }
+    ]
+}
+
+# 创建工作空间（仅超级管理员）
+curl -X POST 'http://localhost:8080/api/workspaces/create' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...' \
+-H 'Content-Type: application/json' \
+-d '{
+    "name": "研发工作空间",
+    "description": "用于研发团队的工作空间",
+    "adminId": 2,
+    "status": 1
+}'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "id": 1,
+        "name": "研发工作空间",
+        "description": "用于研发团队的工作空间",
+        "adminId": 2,
+        "status": 1,
+        "createTime": "2024-11-07 16:07:18"
+    }
+}
+
+# 更新工作空间（仅超级管理员）
+curl -X POST 'http://localhost:8080/api/workspaces/1/update' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...' \
+-H 'Content-Type: application/json' \
+-d '{
+    "name": "更新后的工作空间",
+    "description": "更新后的描述",
+    "adminId": 2,
+    "status": 1
+}'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "id": 1,
+        "name": "更新后的工作空间",
+        "description": "更新后的描述",
+        "adminId": 2,
+        "status": 1,
+        "updateTime": "2024-11-07 16:08:18"
+    }
+}
+
+# 删除工作空间（仅超级管理员）
+curl -X POST 'http://localhost:8080/api/workspaces/1/delete' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": null
+}
+
+# 获取工作空间成员列表
+curl -X GET 'http://localhost:8080/api/workspaces/members/1' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "id": 1,
+            "username": "admin",
+            "email": "admin@example.com",
+            "role": "superadmin"
+        },
+        {
+            "id": 2,
+            "username": "user1",
+            "email": "user1@example.com",
+            "role": "user"
+        }
+    ]
+}
+
+# 批量添加工作空间成员（需要超级管理员或工作空间管理员权限）
+curl -X POST 'http://localhost:8080/api/workspaces/members/1/add' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...' \
+-H 'Content-Type: application/json' \
+-d '[1, 2, 3]'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": null
+}
+
+# 批量移除工作空间成员（需要超级管理员或工作空间管理员权限）
+curl -X POST 'http://localhost:8080/api/workspaces/members/1/remove' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...' \
+-H 'Content-Type: application/json' \
+-d '[2, 3]'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": null
+}
+
+# 获取用户列表
+curl -X GET 'http://localhost:8080/api/users/list' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "id": 1,
+            "username": "admin",
+            "email": "admin@example.com",
+            "role": "superadmin"
+        },
+        {
+            "id": 2,
+            "username": "user1",
+            "email": "user1@example.com",
+            "role": "user"
+        }
+    ]
+}
+
+# 获取项目列表
+curl -X GET 'http://localhost:8080/api/projects/list' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "id": 1,
+            "name": "AI助手项目",
+            "description": "AI智能助手开发项目",
+            "workspaceId": 1,
+            "status": 1,
+            "createTime": "2024-11-06 07:32:06"
+        }
+    ]
+}
+
+# 获取工作空间下的项目
+curl -X GET 'http://localhost:8080/api/projects/list?workspaceId=1' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "id": 1,
+            "name": "AI助手项目",
+            "description": "AI智能助手开发项目",
+            "workspaceId": 1,
+            "status": 1,
+            "createTime": "2024-11-06 07:32:06"
+        }
+    ]
+}
+
+# 创建项目
+curl -X POST 'http://localhost:8080/api/projects/create' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...' \
+-H 'Content-Type: application/json' \
+-d '{
+    "name": "AI助手项目",
+    "description": "AI智能助手开发项目",
+    "workspaceId": 1,
+    "status": 1
+}'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "id": 1,
+        "name": "AI助手项目",
+        "description": "AI智能助手开发项目",
+        "workspaceId": 1,
+        "status": 1,
+        "createTime": "2024-11-07 16:10:18"
+    }
+}
+
+# 获取提示词列表
+curl -X GET 'http://localhost:8080/api/prompts/list' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "id": 1,
+            "name": "用户画像分析",
+            "content": "分析用户行为特征，生成用户画像报告...",
+            "projectId": 1,
+            "status": 1,
+            "createUserId": 1,
+            "updateUserId": 1,
+            "createTime": "2024-11-06 07:31:55"
+        }
+    ]
+}
+
+# 获取项目下的提示词
+curl -X GET 'http://localhost:8080/api/prompts/list?projectId=1' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "id": 1,
+            "name": "用户画像分析",
+            "content": "分析用户行为特征，生成用户画像报告...",
+            "projectId": 1,
+            "status": 1,
+            "createUserId": 1,
+            "updateUserId": 1,
+            "createTime": "2024-11-06 07:31:55"
+        }
+    ]
+}
+
+# 创建提示词
+curl -X POST 'http://localhost:8080/api/prompts/create' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...' \
+-H 'Content-Type: application/json' \
+-d '{
+    "name": "测试提示词",
+    "content": "这是提示词内容",
+    "projectId": 1,
+    "status": 1
+}'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "id": 1,
+        "name": "测试提示词",
+        "content": "这是提示词内容",
+        "projectId": 1,
+        "status": 1,
+        "createUserId": 1,
+        "updateUserId": 1,
+        "createTime": "2024-11-07 16:12:18"
+    }
+}
+
+# 更新提示词
+curl -X POST 'http://localhost:8080/api/prompts/1/update' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...' \
+-H 'Content-Type: application/json' \
+-d '{
+    "prompt": {
+        "name": "更新后的提示词",
+        "content": "这是更新后的提示词内容",
+        "projectId": 1,
+        "status": 1,
+        "updateUserId": 1
+    },
+    "message": "更新提示词内容"
+}'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "id": 1,
+        "name": "更新后的提示词",
+        "content": "这是更新后的提示词内容",
+        "projectId": 1,
+        "status": 1,
+        "updateUserId": 1,
+        "updateTime": "2024-11-07 16:13:18"
+    }
+}
+
+# 获取提示词历史
+curl -X GET 'http://localhost:8080/api/prompts/1/history' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "id": 6,
+            "promptId": 1,
+            "version": 6,
+            "content": "更新后的提示词内容",
+            "message": "更新提示词内容",
+            "userId": 1,
+            "username": "admin",
+            "createTime": "2024-11-07 16:07:18"
+        },
+        {
+            "id": 1,
+            "promptId": 1,
+            "version": 1,
+            "content": "初始提示词内容",
+            "message": "初始版本",
+            "userId": 1,
+            "username": "admin",
+            "createTime": "2024-11-07 15:23:50"
+        }
+    ]
+}
+
+# 获取模型列表（仅超级管理员）
+curl -X GET 'http://localhost:8080/api/models/list' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "id": 1,
+            "name": "GPT-3.5",
+            "description": "OpenAI GPT-3.5模型",
+            "apiUrl": "https://api.openai.com/v1/chat/completions",
+            "status": 1,
+            "createTime": "2024-11-06 07:31:55"
+        }
+    ]
+}
+
+# 创建模型（仅超级管理员）
+curl -X POST 'http://localhost:8080/api/models/create' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...' \
+-H 'Content-Type: application/json' \
+-d '{
+    "name": "GPT-3.5",
+    "description": "OpenAI GPT-3.5模型",
+    "apiUrl": "https://api.openai.com/v1/chat/completions",
+    "apiKey": "sk-xxx",
+    "status": 1
+}'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "id": 1,
+        "name": "GPT-3.5",
+        "description": "OpenAI GPT-3.5模型",
+        "apiUrl": "https://api.openai.com/v1/chat/completions",
+        "status": 1,
+        "createTime": "2024-11-07 16:15:18"
+    }
+}
+
+# 调用模型
+curl -X POST 'http://localhost:8080/api/models/1/call' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...' \
+-H 'Content-Type: application/json' \
+-d '{
+    "prompt": "你好，请介绍下你自己"
+}'
+
+# 返回示例
+{
+    "code": 200,
+    "message": "success",
+    "data": "你好！我是 GPT-3.5，一个由 OpenAI 开发的大型语言模型..."
+}
