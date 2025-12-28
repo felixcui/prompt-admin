@@ -1,4 +1,4 @@
--- mysql -h ai_camp.mysql.dev-spatio-inc.com -uai_camp_dev_rw -pGW41v5K8mAJ8B4n4 prompt_admin   < ./be/create_table.sql
+-- mysql -h xxx.mysql.dev-spatio-inc.com -uxxx_dev_rw -pGW41v5K8mAJ8B4n4 prompt_admin   < ./be/create_table.sql
 
 -- 创建数据库
 CREATE DATABASE IF NOT EXISTS prompt_admin DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

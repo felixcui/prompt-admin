@@ -3,19 +3,19 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://ai_camp.mysql.dev-spatio-inc.com:3306/prompt_admin?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    username: ai_camp_dev_rw
+    url: jdbc:mysql://mysql.xxx.com:3306/prompt_admin?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: xxx_dev_rw
     password: GW41v5K8mAJ8B4n4
     driver-class-name: com.mysql.cj.jdbc.Driver
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
   ldap:
-    urls: ldap://ldap.bondee.com:389
-    username: dolphin@bondee.com
+    urls: ldap://ldap.xxx.com:389
+    username: dolphin@xxx.com
     password: o&!u*Wyjqo
-    base: OU=zone,DC=bondee,DC=local
-    group: CN=dolphin-outsourcing,OU=groups,OU=local,OU=zone,DC=bondee,DC=local,,CN=spatio-internal,OU=groups,OU=local,OU=zone,DC=bondee,DC=local
+    base: OU=zone,DC=xxx,DC=local
+    group: CN=dolphin-outsourcing,OU=groups,OU=local,OU=zone,DC=xxx,DC=local,,CN=spatio-internal,OU=groups,OU=local,OU=zone,DC=xxx,DC=local
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
